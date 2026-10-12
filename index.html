@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#F4A6C1">
+  <title>1 mês contigo, May 💕</title>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Inter:wght@300;400;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Fundo: pétalas flutuantes -->
+  <div class="fundo-petalas"></div>
+
+  <!-- Container principal -->
+  <main class="container">
+
+    <!-- 1. TELA DE CADEADO -->
+    <section class="secao cadeado-secao" id="cadeado">
+      <div class="cadeado-card">
+        <svg class="icone-cadeado" viewBox="0 0 100 100" width="80" height="80">
+          <rect x="35" y="45" width="30" height="35" fill="none" stroke="currentColor" stroke-width="3" rx="3"/>
+          <path d="M 45 45 Q 45 25 50 25 Q 55 25 55 45" fill="none" stroke="currentColor" stroke-width="3"/>
+          <circle cx="50" cy="65" r="3" fill="currentColor"/>
+        </svg>
+
+        <h1 class="titulo-cadeado">Olá, May 🌷</h1>
+        <p class="dica-cadeado"></p>
+
+        <input
+          type="tel"
+          id="senhaInput"
+          class="input-senha"
+          placeholder="_ _ _ _ _ _ _ _"
+          inputmode="numeric"
+          maxlength="8"
+          autocomplete="off"
+        />
+
+        <button id="botaoCadeado" class="botao botao-primario">Abrir 💕</button>
+
+        <div id="mensagemErro" class="mensagem-erro" style="display: none;">
+          {{ CONFIG.cadeado.mensagemErro }}
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. ENVELOPE -->
+    <section class="secao envelope-secao hidden" id="envelope">
+      <div class="envelope-container">
+        <div class="envelope-card">
+          <div class="envelope-front">
+            <p class="texto-envelope">Abra para mim 💌</p>
+            <svg class="icone-envelope" viewBox="0 0 100 100">
+              <path d="M 10 30 L 50 55 L 90 30 M 10 30 L 10 80 L 90 80 L 90 30"
+                    fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <div class="envelope-back">
+            <p class="texto-aberto"></p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Botão de mudo (discreto, fixo) -->
+      <button id="botaoMudo" class="botao-mudo" title="Silenciar/Ativar som">
+        <span class="icone-som">🔊</span>
+      </button>
+
+      <!-- Player de áudio (oculto, controlado por JS) -->
+      <audio id="audioMusica"></audio>
+    </section>
+
+    <!-- 3. CONTADORES -->
+    <section class="secao contadores-secao" id="contadores">
+      <div class="contadores-grid">
+        <template id="templateContador">
+          <div class="contador-card">
+            <p class="contador-label">{{ rotulo }}</p>
+            <div class="contador-valores">
+              <div class="contador-item">
+                <span class="contador-numero dias">00</span>
+                <span class="contador-unidade">dias</span>
+              </div>
+              <div class="contador-item">
+                <span class="contador-numero horas">00</span>
+                <span class="contador-unidade">horas</span>
+              </div>
+              <div class="contador-item">
+                <span class="contador-numero minutos">00</span>
+                <span class="contador-unidade">min</span>
+              </div>
+              <div class="contador-item">
+                <span class="contador-numero segundos">00</span>
+                <span class="contador-unidade">seg</span>
+              </div>
+            </div>
+          </div>
+        </template>
+      </div>
+    </section>
+
+    <!-- 4. LINHA DO TEMPO -->
+    <section class="secao timeline-secao" id="timeline">
+      <h2 class="titulo-secao">Nossa história</h2>
+
+      <div class="timeline-container">
+        <template id="templateMomento">
+          <article class="timeline-momento">
+            <div class="momento-foto-container">
+              <img class="momento-foto" src="" alt="" loading="lazy"/>
+              <span class="icone-buque" style="display: none;">💐</span>
+            </div>
+            <div class="momento-texto">
+              <p class="momento-data"></p>
+              <h3 class="momento-titulo"></h3>
+              <p class="momento-descricao"></p>
+            </div>
+          </article>
+        </template>
+      </div>
+
+      <!-- Lightbox -->
+      <div id="lightbox" class="lightbox" style="display: none;">
+        <button class="lightbox-fechar">&times;</button>
+        <img class="lightbox-imagem" src="" alt=""/>
+      </div>
+    </section>
+
+    <!-- 5. MOTIVOS -->
+    <section class="secao motivos-secao" id="motivos">
+      <h2 class="titulo-secao">Razões para te amar</h2>
+
+      <div class="motivos-container">
+        <template id="templateMotivo">
+          <div class="motivo-card">
+            <div class="motivo-inner">
+              <div class="motivo-front">
+                <p class="motivo-numero"></p>
+              </div>
+              <div class="motivo-back">
+                <p class="motivo-texto"></p>
+              </div>
+            </div>
+          </div>
+        </template>
+      </div>
+    </section>
+
+    <!-- 6. CARTA FINAL -->
+    <section class="secao carta-secao" id="carta">
+      <div class="carta-card">
+        <h2 class="titulo-secao">Uma cartinha para você</h2>
+
+        <div class="carta-corpo">
+          <template id="templateParagrafo">
+            <p class="paragrafo-carta"></p>
+          </template>
+        </div>
+
+        <p class="carta-assinatura"></p>
+      </div>
+    </section>
+
+    <!-- 7. PERGUNTA FINAL -->
+    <section class="secao pergunta-secao" id="pergunta">
+      <div class="pergunta-card">
+        <h2 class="pergunta-texto"></h2>
+
+        <div class="botoes-pergunta">
+          <button id="botaoNao" class="botao botao-nao"></button>
+          <button id="botaoSim" class="botao botao-sim"></button>
+        </div>
+
+        <div id="mensagemFinal" class="mensagem-final" style="display: none;"></div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Canvas para coraçõezinhos ao tocar -->
+  <canvas id="canvasCoracoes" style="position: fixed; top: 0; left: 0; pointer-events: none; z-index: 9999;"></canvas>
+
+  <!-- Scripts -->
+  <script src="config.js"></script>
+  <script src="script.js"></script>
+
+  <!-- Confete (canvas-confetti via CDN) -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.0/dist/confetti.browser.min.js"></script>
+</body>
+</html>
